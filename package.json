@@ -11,7 +11,8 @@
     "start": "node --es-module-specifier-resolution=node dist/bot/client.js",
     "build": "tsc",
     "clean": "rimraf dist",
-    "cb": "yarn clean && yarn build"
+    "cb": "yarn clean && yarn build",
+    "clear": "rimraf temp/*-*"
   },
   "dependencies": {
     "chalk": "^5.0.0",

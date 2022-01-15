@@ -5,6 +5,7 @@ import { Client, Intents } from "discord.js";
 import { processMessageCommand } from "./commands/messageCmd";
 import chalk from "chalk";
 import readline from "readline";
+import { loadProblems } from "../grader/problems";
 
 const client = new Client({
     intents: [
@@ -38,6 +39,9 @@ client.on("interactionCreate", (interaction) => {
     }
 });
 
+loadProblems();
+
+// * Console Zone
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,

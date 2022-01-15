@@ -5,7 +5,7 @@ import Grade from "../../../grader/grader";
 
 // * Accept Submission and Print Result
 export default async function submit(message: Message) {
-    let problem = message.content.split(" ")[2];
+    let problem = message.content.split(" ")[2].split("\n")[0];
 
     let userCode = "";
 
@@ -36,5 +36,5 @@ export default async function submit(message: Message) {
     }
 
     const result = await Grade(problem, userCode);
-    message.reply(`${result.score}`);
+    message.reply(`${result.status} ${result.score}`);
 }

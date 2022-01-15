@@ -3,12 +3,27 @@ import { promisify } from "util";
 import { writeFile } from "fs/promises";
 import { v4 as uuid } from "uuid";
 
+import { getProblems } from "./problems";
+import { wCmp } from "./compare/wcmp";
+
 const exec = promisify(execCb);
 
-export default async function Grade(problem: string, code: string) {
-    console.log(problem);
-    console.log(code);
+export interface Verdict {
+    status: "Compilation Error" | "Rejected" | "Accepted";
+    score: number;
+}
 
+export type CaseVerdict =
+    | "Correct Answer"
+    | "Wrong Answer"
+    | "Time Limit Exceeded"
+    | "Runtime Error";
+
+export default async function Grade(
+    problemID: string,
+    code: string
+): Promise<Verdict> {
+    const problem = getProblems(problemID);
     const submissionId = uuid();
 
     try {
@@ -16,13 +31,45 @@ export default async function Grade(problem: string, code: string) {
         const compileRes = await exec(
             `g++ temp/${submissionId}.cpp -o temp/${submissionId} -std=c++17 -O2 -lm`
         );
-        const runRes = await exec(`./temp/${submissionId}`);
-        console.log({ compileRes, runRes });
     } catch (error) {
+        // ! remove in production
         console.log(error);
+        return { status: "Compilation Error", score: 0 };
+    }
+
+    let totalScore = 0;
+    for (const [subtaskName, subtaskScore] of Object.entries(
+        problem.subtasks
+    )) {
+        const subtaskRes =
+            (await GradeCase(
+                `./temp/${submissionId}`,
+                `./problems/${problemID}/testcase/${subtaskName}`
+            )) == "Correct Answer";
+
+        totalScore += subtaskRes ? subtaskScore : 0;
     }
 
     return {
-        score: 100,
+        status:
+            totalScore == (problem.maxScore ?? 100) ? "Accepted" : "Rejected",
+        score: totalScore,
     };
+}
+
+async function GradeCase(
+    execloc: string,
+    caseloc: string
+): Promise<CaseVerdict> {
+    try {
+        const runRes = await exec(`cat ${caseloc}.in | ${execloc}`);
+        if (await wCmp(runRes.stdout, `${caseloc}.out`)) {
+            return "Correct Answer";
+        } else {
+            return "Wrong Answer";
+        }
+    } catch (error) {
+        console.log(error);
+        return "Runtime Error";
+    }
 }
