@@ -1,11 +1,17 @@
 import chalk from "chalk";
 import { Message } from "discord.js";
 import fetch from "node-fetch";
+import { problemExists } from "../../../grader/problems";
 import Grade from "../../../grader/grader";
 
 // * Accept Submission and Print Result
 export default async function submit(message: Message) {
-    let problem = message.content.split(" ")[2].split("\n")[0];
+    let problem = message.content.split(" ")[2]?.split("\n")[0];
+
+    if (!problemExists(problem)) {
+        message.reply(`That Problem does not exist!`);
+        return;
+    }
 
     let userCode = "";
 

@@ -41,3 +41,7 @@ export async function loadProblems() {
 export function getProblems(id: string) {
     return problemsList[id];
 }
+
+export function problemExists(id: string): boolean {
+    return problemsList[id] !== undefined;
+}
