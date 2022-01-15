@@ -1,0 +1,34 @@
+{
+  "name": "cocoa-grader",
+  "version": "1.0.0",
+  "description": "Discord Bot Grader",
+  "main": "index.js",
+  "repository": "https://github.com/Leomotors/cocoa-grader",
+  "author": "Leomotors",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node --es-module-specifier-resolution=node dist/bot/client.js",
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "cb": "yarn clean && yarn build"
+  },
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "discord.js": "^13.6.0",
+    "dotenv": "^12.0.3",
+    "node-fetch": "^3.1.0",
+    "ts-node": "^10.4.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "eslint": "^8.6.0",
+    "leomotors-automation": "^2.0.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.4"
+  }
+}
