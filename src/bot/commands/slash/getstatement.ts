@@ -23,7 +23,10 @@ export const getstatement: CocoaSlash = {
             return;
         }
 
-        if (Problem.statement) await ctx.reply(Problem.statement);
+        if (Problem.statement)
+            await ctx.reply(
+                `Here is statement for ${Problem.title}\n${Problem.statement}`
+            );
         else ctx.reply("Sorry, this problem doesn't have statement");
     },
 };
