@@ -28,7 +28,7 @@ client.login(process.env.DISCORD_TOKEN);
 
 client.on("ready", (cli) => {
     console.log(
-        chalk.green(`ココアお姉ちゃん 「${cli.user.tag}」 は準備完了です`)
+        chalk.cyan(`ココアお姉ちゃん 「${cli.user.tag}」 は準備完了です`)
     );
     center.syncCommands();
 });

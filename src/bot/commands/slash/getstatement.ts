@@ -1,6 +1,6 @@
 import { CocoaSlash } from "cocoa-discord-utils/slash";
-import { CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
+
 import { getProblems } from "../../../grader/problems";
 
 export const getstatement: CocoaSlash = {
@@ -14,7 +14,7 @@ export const getstatement: CocoaSlash = {
                 .setRequired(true)
         )
         .toJSON(),
-    func: async (ctx: CommandInteraction) => {
+    func: async (ctx) => {
         const problem_name = ctx.options.getString("problem_name", true);
         const Problem = getProblems(problem_name);
 

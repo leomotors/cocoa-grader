@@ -1,6 +1,6 @@
 {
   "name": "cocoa-grader",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Discord Bot Grader",
   "main": "index.js",
   "repository": "https://github.com/Leomotors/cocoa-grader",
