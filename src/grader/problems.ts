@@ -8,6 +8,7 @@ export interface Problem {
     memorylimit: number;
     subtasks: { [name: string]: number };
     maxScore?: number;
+    statement?: string;
 }
 
 let problemsList: { [id: string]: Problem } = {};

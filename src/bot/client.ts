@@ -1,11 +1,15 @@
-import { config } from "dotenv";
-config();
-
-import { Client, Intents } from "discord.js";
-import { processMessageCommand } from "./commands/messageCmd";
+import "dotenv/config";
 import chalk from "chalk";
-import readline from "readline";
+import { Client, Intents } from "discord.js";
+
+import { SlashCenter } from "cocoa-discord-utils/slash";
+import { setConsoleEvent } from "cocoa-discord-utils";
+
+import { processMessageCommand } from "./commands/messageCmd";
 import { loadProblems } from "../grader/problems";
+import { Cocoa } from "./commands/slash";
+
+loadProblems();
 
 const client = new Client({
     intents: [
@@ -17,12 +21,16 @@ const client = new Client({
     ],
 });
 
+const center = new SlashCenter(client, process.env.GUILD_IDS?.split(",") ?? []);
+center.addCog(Cocoa);
+
 client.login(process.env.DISCORD_TOKEN);
 
 client.on("ready", (cli) => {
     console.log(
         chalk.green(`ココアお姉ちゃん 「${cli.user.tag}」 は準備完了です`)
     );
+    center.syncCommands();
 });
 
 client.on("messageCreate", (message) => {
@@ -33,21 +41,8 @@ client.on("messageCreate", (message) => {
     }
 });
 
-client.on("interactionCreate", (interaction) => {
-    if (interaction.isCommand()) {
-        // * do smth
-    }
-});
-
-loadProblems();
-
 // * Console Zone
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
-
-rl.on("line", (cmd: string) => {
+setConsoleEvent((cmd: string) => {
     if (cmd.startsWith("logout")) {
         client.destroy();
         console.log(chalk.cyan("Logged out Successfully!"));

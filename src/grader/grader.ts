@@ -28,12 +28,10 @@ export default async function Grade(
 
     try {
         await writeFile(`temp/${submissionId}.cpp`, code);
-        const compileRes = await exec(
+        await exec(
             `g++ temp/${submissionId}.cpp -o temp/${submissionId} -std=c++17 -O2 -lm`
         );
     } catch (error) {
-        // ! remove in production
-        console.log(error);
         return { status: "Compilation Error", score: 0 };
     }
 
