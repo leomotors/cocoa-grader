@@ -27,6 +27,6 @@ export const getstatement: CocoaSlash = {
             await ctx.reply(
                 `Here is statement for ${Problem.title}\n${Problem.statement}`
             );
-        else ctx.reply("Sorry, this problem doesn't have statement");
+        else await ctx.reply("Sorry, this problem doesn't have statement");
     },
 };

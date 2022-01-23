@@ -3,7 +3,7 @@ import { Message } from "discord.js";
 import fetch from "node-fetch";
 import { problemExists } from "../../../grader/problems";
 import Grade from "../../../grader/grader";
-import { getLang, SupportedLang } from "../../../grader/compile";
+import { getLang } from "../../../grader/compile";
 
 // * Accept Submission and Print Result
 export default async function submit(message: Message) {
@@ -61,6 +61,13 @@ export default async function submit(message: Message) {
 
     const msg = await message.reply("Grading...");
 
+    const start = performance.now();
     const result = await Grade(problem, userCode, lang, message.author.tag);
-    msg.edit(`${result.status} ${result.score} [${result.subtasks}]`);
+    const end = performance.now();
+
+    msg.edit(
+        `Finished in ${Math.round(end - start) / 1000} seconds\n${
+            result.status
+        } ${result.score} [${result.subtasks}]`
+    );
 }

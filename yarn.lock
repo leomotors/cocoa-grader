@@ -773,11 +773,6 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
-leomotors-automation@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/leomotors-automation/-/leomotors-automation-2.0.1.tgz#64cd142683ce3f05324b9d51a1e582761914e811"
-  integrity sha512-AZfc11Un9RPib60x1I+MEiJ1KybMDEp2tGtPue37Vl9ZdgS6tmwSxDC+fYmBaNOraMcgpaOPZ4K1SzYUzFqscA==
-
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"

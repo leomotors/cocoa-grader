@@ -78,13 +78,14 @@ async function GradeCase(
 ): Promise<CaseVerdict> {
     try {
         const runRes = await exec(
-            `cat ${caseloc}.in | timeout -t ${problem.timelimit} -m ${
-                problem.memorylimit * 1000
-            } ${execloc}`
+            `cat ${caseloc}.in | timeout -t ${
+                problem.timelimit *
+                (parseInt(process.env.EXTRA_TIME ?? "") || 1)
+            } -m ${problem.memorylimit * 1000} ${execloc}`
         );
 
         if (runRes.stderr.startsWith("TIMEOUT")) return "Time Limit Exceeded";
-        if (runRes.stderr.startsWith("MEM")) return "Runtime Error";
+        if (!runRes.stderr.startsWith("FINISHED")) return "Runtime Error";
 
         if (await wCmp(runRes.stdout, `${caseloc}.out`)) {
             return "Correct Answer";
@@ -92,7 +93,6 @@ async function GradeCase(
             return "Wrong Answer";
         }
     } catch (error) {
-        console.log(`Error while grading ${caseloc} : ${error}`);
         return "Runtime Error";
     }
 }

@@ -1,8 +1,8 @@
 {
   "name": "cocoa-grader",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Discord Bot Grader",
-  "main": "index.js",
+  "main": "dist/bot/client.js",
   "repository": "https://github.com/Leomotors/cocoa-grader",
   "author": "Leomotors",
   "license": "MIT",
@@ -30,7 +30,6 @@
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "eslint": "^8.7.0",
-    "leomotors-automation": "^2.0.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.5"
   }
