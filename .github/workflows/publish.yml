@@ -19,3 +19,6 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION_MUST_INCREASE: true
+          RELEASE_TITLE: "Cocoa Grader {VERSION}"
+          RELEASE_ON_KEYWORD: ${{ github.event.commits[0].message }}
+          ALWAYS_GENERATE_NOTES: true

@@ -315,14 +315,13 @@ chalk@^5.0.0:
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.0.0.tgz#bd96c6bb8e02b96e08c0c3ee2a9d90e050c7b832"
   integrity sha512-/duVOqst+luxCQRKEo4bNxinsOQtMP80ZYm7mMqzuh5PociNL0PvmHFvREJ9ueYL2TxlHjBcmLCdmocx9Vg+IQ==
 
-cocoa-discord-utils@^1.0.0-beta.1:
-  version "1.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/cocoa-discord-utils/-/cocoa-discord-utils-1.0.0-beta.1.tgz#6518bc3038c73495e69f1c8662f6f60ea03f9e2e"
-  integrity sha512-fefhNGsgPU9LKa53AMCmW2do1CxhLHcVrsxiW/ShJkQhbzwuYVBArWvIXIlTsaGJ3fex1Y29GUI/H0YhPQfa0g==
+cocoa-discord-utils@^1.0.0-beta.2:
+  version "1.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/cocoa-discord-utils/-/cocoa-discord-utils-1.0.0-beta.2.tgz#f434fd7cba0d3cfb7650fa6c17522ea923ab9267"
+  integrity sha512-iPGhH/ZSjG/8OHsB0y4EFtLob6vciv2nXBkjFL6g/EUJfh+FW4/f51WKipBb8TzIfaUtqGv5DeIuef2uWbeDJQ==
   dependencies:
     chalk "^5.0.0"
     discord.js "^13.6.0"
-    rimraf "^3.0.2"
 
 color-convert@^2.0.1:
   version "2.0.1"
