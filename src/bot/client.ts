@@ -8,10 +8,11 @@ import {
     setConsoleEvent,
     useActivityGroup,
 } from "cocoa-discord-utils";
+import { MessageCenter } from "cocoa-discord-utils/message";
 import { SlashCenter } from "cocoa-discord-utils/slash";
 
-import { processMessageCommand } from "./commands/messageCmd";
 import { loadProblems } from "../grader/problems";
+import { CocoaMsg } from "./commands/message";
 import { Cocoa } from "./commands/slash";
 
 loadProblems();
@@ -26,24 +27,24 @@ const client = new Client({
     ],
 });
 
-const center = new SlashCenter(client, process.env.GUILD_IDS?.split(",") ?? []);
-center.addCog(Cocoa);
+const msgcenter = new MessageCenter(client, { mention: true });
+msgcenter.addCog(CocoaMsg);
+msgcenter.validateCommands();
+
+const slashcenter = new SlashCenter(
+    client,
+    process.env.GUILD_IDS?.split(",") ?? []
+);
+slashcenter.addCog(Cocoa);
 
 const groupLoader = new ActivityGroupLoader("data/activities.json");
-
-client.on("messageCreate", (message) => {
-    if (message.author.bot) return;
-
-    if (message.mentions.has(client.user!)) {
-        processMessageCommand(message);
-    }
-});
 
 client.on("ready", (cli) => {
     console.log(
         chalk.cyan(`ココアお姉ちゃん 「${cli.user.tag}」 は準備完了です`)
     );
-    center.syncCommands();
+    slashcenter.validateCommands();
+    slashcenter.syncCommands();
     useActivityGroup(client, groupLoader);
 });
 

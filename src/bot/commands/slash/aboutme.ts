@@ -1,10 +1,14 @@
-import { CocoaSlash } from "cocoa-discord-utils/slash";
 import { Embed, SlashCommandBuilder } from "@discordjs/builders";
+
+import { CocoaVersion } from "cocoa-discord-utils/meta";
+import { CocoaSlash } from "cocoa-discord-utils/slash";
+import { ephemeral } from "cocoa-discord-utils/template";
 
 export const aboutme: CocoaSlash = {
     command: new SlashCommandBuilder()
         .setName("aboutme")
         .setDescription("Get Info about me!")
+        .addBooleanOption(ephemeral())
         .toJSON(),
     func: async (ctx) => {
         const embed = new Embed()
@@ -19,8 +23,13 @@ export const aboutme: CocoaSlash = {
             )
             .addFields(
                 {
-                    name: "Version",
+                    name: "Bot Version",
                     value: process.env.npm_package_version ?? "Unknown",
+                    inline: true,
+                },
+                {
+                    name: "Cocoa Utils Version",
+                    value: CocoaVersion,
                     inline: true,
                 },
                 {

@@ -1,12 +1,11 @@
 import { exec as execCb } from "child_process";
 import { promisify } from "util";
-import { writeFile } from "fs/promises";
 import { v4 as uuid } from "uuid";
 
-import { getProblems, Problem } from "./problems";
-import { wCmp } from "./compare/wcmp";
-import { shortenVerdicts } from "./utils";
+import { check } from "./check";
 import { Compile, getECmd, SupportedLang } from "./compile";
+import { getProblems, Problem } from "./problems";
+import { shortenVerdicts } from "./utils";
 
 export const exec = promisify(execCb);
 
@@ -87,7 +86,9 @@ async function GradeCase(
         if (runRes.stderr.startsWith("TIMEOUT")) return "Time Limit Exceeded";
         if (!runRes.stderr.startsWith("FINISHED")) return "Runtime Error";
 
-        if (await wCmp(runRes.stdout, `${caseloc}.out`)) {
+        if (
+            await check(runRes.stdout, `${caseloc}.out`, problem.compare ?? "W")
+        ) {
             return "Correct Answer";
         } else {
             return "Wrong Answer";

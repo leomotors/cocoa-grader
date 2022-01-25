@@ -8,7 +8,7 @@ A Discord Bot Grader
 
 ### To Start the Bot
 
-- nodejs (16.6+) with npm, yarn
+- nodejs (16.9+) with npm, yarn
 
 ### To make sure no error occurred
 

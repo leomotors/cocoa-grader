@@ -1,6 +1,8 @@
 import chalk from "chalk";
 import fs from "fs/promises";
 
+import { CompareType } from "./check";
+
 export interface Problem {
     title: string;
     description: string;
@@ -9,6 +11,7 @@ export interface Problem {
     subtasks: { [name: string]: number };
     maxScore?: number;
     statement?: string;
+    compare?: CompareType;
 }
 
 let problemsList: { [id: string]: Problem } = {};
