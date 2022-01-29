@@ -1,8 +1,5 @@
 import "dotenv/config";
 
-import chalk from "chalk";
-import { Client, Intents } from "discord.js";
-
 import {
     ActivityGroupLoader,
     setConsoleEvent,
@@ -10,22 +7,20 @@ import {
 } from "cocoa-discord-utils";
 import { MessageCenter } from "cocoa-discord-utils/message";
 import { SlashCenter } from "cocoa-discord-utils/slash";
+import { CocoaOptions } from "cocoa-discord-utils/template";
+
+import { Client } from "discord.js";
+
+import chalk from "chalk";
 
 import { loadProblems } from "../grader/problems";
+
 import { CocoaMsg } from "./commands/message";
 import { Cocoa } from "./commands/slash";
 
 loadProblems();
 
-const client = new Client({
-    intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-        Intents.FLAGS.DIRECT_MESSAGES,
-        Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-    ],
-});
+const client = new Client(CocoaOptions);
 
 const msgcenter = new MessageCenter(client, { mention: true });
 msgcenter.addCog(CocoaMsg);

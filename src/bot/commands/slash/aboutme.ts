@@ -1,26 +1,26 @@
-import { Embed, SlashCommandBuilder } from "@discordjs/builders";
-
 import { CocoaVersion } from "cocoa-discord-utils/meta";
 import { CocoaSlash } from "cocoa-discord-utils/slash";
-import { ephemeral } from "cocoa-discord-utils/template";
+import { Author, CocoaBuilder, ephemeral } from "cocoa-discord-utils/template";
+
+import { Embed } from "@discordjs/builders";
+
+import { Cocoa } from "../../shared";
 
 export const aboutme: CocoaSlash = {
-    command: new SlashCommandBuilder()
-        .setName("aboutme")
-        .setDescription("Get Info about me!")
+    command: CocoaBuilder("aboutme", "Get Info about me!")
         .addBooleanOption(ephemeral())
         .toJSON(),
     func: async (ctx) => {
+        const ephe = ctx.options.getBoolean("ephemeral") || false;
         const embed = new Embed()
-            .setAuthor({
-                name: ctx.user.username,
-                iconURL: ctx.user.avatarURL() ?? "",
-            })
+            .setAuthor(Author(ctx))
             .setTitle("Cocoa Grader")
-            .setColor(0xe0beab)
+
             .setDescription(
                 "I am Cocoa Grader! Who will carefully grade your code! 💖💖"
             )
+            .setColor(Cocoa.Color)
+            .setThumbnail(Cocoa.GIF.お姉ちゃんに任せなさい)
             .addFields(
                 {
                     name: "Bot Version",
@@ -48,10 +48,11 @@ export const aboutme: CocoaSlash = {
                     inline: true,
                 }
             )
-            .setFooter({ text: "お姉ちゃんに任せなさ～い! ✨🌟" });
+            .setFooter(Cocoa.Footer(ctx));
 
         await ctx.reply({
             embeds: [embed.toJSON()],
+            ephemeral: ephe,
         });
     },
 };

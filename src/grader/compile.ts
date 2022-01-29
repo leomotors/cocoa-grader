@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { writeFile } from "fs/promises";
+
 import { exec } from "./grader";
 
 export type SupportedLang = "C" | "C++" | "Python";

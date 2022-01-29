@@ -1,10 +1,11 @@
-import chalk from "chalk";
-import fetch from "node-fetch";
 import { CocoaMessage } from "cocoa-discord-utils/message";
 
-import { problemExists } from "../../../grader/problems";
-import Grade from "../../../grader/grader";
+import chalk from "chalk";
+import fetch from "node-fetch";
+
 import { getLang } from "../../../grader/compile";
+import Grade from "../../../grader/grader";
+import { problemExists } from "../../../grader/problems";
 
 // * Accept Submission and Print Result
 export const submit: CocoaMessage = {
@@ -13,10 +14,10 @@ export const submit: CocoaMessage = {
         description: "Submit your code to the problem",
     },
     func: async (msg, strp) => {
-        let problem = strp.split(/\s+/).filter((s) => s.length > 0)[0];
+        const problem = strp.split(/\s+/).filter((s) => s.length > 0)[0];
 
         if (!problemExists(problem)) {
-            await msg.reply(`That Problem does not exist!`);
+            await msg.reply("That Problem does not exist!");
             return;
         }
 

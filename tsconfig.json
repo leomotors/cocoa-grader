@@ -9,7 +9,8 @@
         "moduleResolution": "node",
         "rootDirs": ["src"],
         "outDir": "./dist",
-        "baseUrl": "./"
+        "baseUrl": "./",
+        "incremental": true
     },
     "include": ["./src/**/*"]
 }
