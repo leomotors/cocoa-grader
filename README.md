@@ -1,6 +1,6 @@
 # Cocoa Grader
 
-A Discord Bot Grader
+A Discord Bot Grader, more specifically, '*Waifu*'
 
 ~~Created to compete with [Cafe Grader](https://github.com/cafe-grader-team/cafe-grader-web)~~
 
@@ -15,3 +15,17 @@ A Discord Bot Grader
 - gcc
 
 - pshved/timeout installed to bin, [see here](https://unix.stackexchange.com/a/44988)
+
+- Use some powerful devices (I use Raspberry Pi 😖)
+
+## 🖼️ Gallery of Cocoa Grader
+
+*Screenshot at Version 0.2.7*
+
+![](./images/submit_0.2.7.png)
+
+![](./images/getstatement_0.2.7.png)
+
+![](./images/aboutme_0.2.7.png)
+
+![](./images/status_0.2.7.png)

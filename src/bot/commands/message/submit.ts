@@ -38,6 +38,11 @@ function EmbedGen(msg: Message, result: Verdict, perf: number) {
                 inline: true,
             },
             {
+                name: "Grader Version",
+                value: process.env.npm_package_version ?? "Unknown",
+                inline: true,
+            },
+            {
                 name: "Time Compensation",
                 value: `${process.env.EXTRA_TIME ?? 1}x`,
                 inline: true,
@@ -134,6 +139,7 @@ export const submit: CocoaMessage = {
         const perf = performance.now() - start;
 
         sentmsg.edit({
+            content: "Graded!",
             embeds: [EmbedGen(msg, result, perf).toJSON()],
         });
     },

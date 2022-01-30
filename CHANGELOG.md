@@ -4,6 +4,10 @@ All notable changes to Kawaii Cocoa Grader will be documented here
 
 Changelog before 0.2.2 will not be noted here
 
+## [0.2.8] - 2022-01-30
+
+- Fix Misc Mistake
+
 ## [0.2.7] - 2022-01-30
 
 - Updated Embeds ✨✨
