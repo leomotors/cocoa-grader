@@ -4,6 +4,10 @@ All notable changes to Kawaii Cocoa Grader will be documented here
 
 Changelog before 0.2.2 will not be noted here
 
+## [1.0.0] - 2022-01-30
+
+- Everything is settled, Release 1.0.0! Let's go!!!
+
 ## [0.2.9] - 2022-01-30
 
 - It is normal for Idea to come in after I publish a release

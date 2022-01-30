@@ -31,6 +31,7 @@ const slashcenter = new SlashCenter(
     process.env.GUILD_IDS?.split(",") ?? []
 );
 slashcenter.addCog(Cocoa);
+slashcenter.validateCommands();
 
 const groupLoader = new ActivityGroupLoader("data/activities.json");
 
@@ -38,7 +39,6 @@ client.on("ready", (cli) => {
     console.log(
         chalk.cyan(`ココアお姉ちゃん 「${cli.user.tag}」 は準備完了です`)
     );
-    slashcenter.validateCommands();
     slashcenter.syncCommands();
     useActivityGroup(client, groupLoader);
 });
