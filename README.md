@@ -20,9 +20,9 @@ A Discord Bot Grader, more specifically, '*Waifu*'
 
 ## 🖼️ Gallery of Cocoa Grader
 
-*Screenshot at Version 0.2.7*
+*All pictures are at Version 0.2.7 except for submit is at 0.2.9*
 
-![](./images/submit_0.2.7.png)
+![](./images/submit_0.2.9.png)
 
 ![](./images/getstatement_0.2.7.png)
 
