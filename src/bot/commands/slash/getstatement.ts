@@ -28,26 +28,49 @@ export const getstatement: CocoaSlash = {
             return;
         }
 
+        const embed = new Embed()
+            .setAuthor(Author(ctx))
+            .setTitle(Problem.title)
+            .setDescription(Problem.description)
+            .addFields(
+                {
+                    name: "Problem ID",
+                    value: problem_name,
+                    inline: true,
+                },
+                {
+                    name: "Time Limit",
+                    value: `${Problem.timelimit} seconds`,
+                    inline: true,
+                },
+                {
+                    name: "Memory Limit",
+                    value: `${Problem.memorylimit} MB`,
+                    inline: true,
+                },
+                {
+                    name: "Subtasks",
+                    value: `${Object.keys(Problem.subtasks).length}`,
+                    inline: true,
+                },
+                {
+                    name: "Max Score",
+                    value: `${Problem.maxScore ?? 100}`,
+                    inline: true,
+                },
+                {
+                    name: "Statement",
+                    value: `[Click](${Problem.statement})`,
+                    inline: true,
+                }
+            )
+            .setColor(Cocoa.Color)
+            .setThumbnail(Cocoa.GIF.CoffeeNomu)
+            .setFooter(Cocoa.Footer(ctx));
+
         if (Problem.statement)
             await ctx.reply({
-                embeds: [
-                    new Embed()
-                        .setAuthor(Author(ctx))
-                        .setTitle(Problem.title)
-                        .setDescription(
-                            `ID: ${problem_name}\nDescription: ${
-                                Problem.description
-                            }\nStatement: ${
-                                Problem.statement
-                                    ? `[Click Here](${Problem.statement}`
-                                    : "Does not exist"
-                            })`
-                        )
-                        .setColor(Cocoa.Color)
-                        .setThumbnail(Cocoa.GIF.CoffeeNomu)
-                        .setFooter(Cocoa.Footer(ctx))
-                        .toJSON(),
-                ],
+                embeds: [embed.toJSON()],
             });
         else await ctx.reply("Sorry, this problem doesn't have statement");
     },

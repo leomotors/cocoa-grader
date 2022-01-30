@@ -20,7 +20,7 @@ function EmbedGen(msg: Message, result: Verdict, perf: number) {
         .setAuthor(Author(msg))
         .setTitle(pb.title)
         .setDescription(
-            `Description: ${pb.description}\nSubmission Status: ${result.status}\nSubtasks Verdict: [${result.subtasks}]`
+            `Description: ${pb.description}\nTime Limit: ${pb.timelimit} seconds\nMemory Limit: ${pb.memorylimit} MB\nSubmission Status: ${result.status}\nSubtasks Verdict: [${result.subtasks}]`
         )
         .setColor(Cocoa.Color)
         .setThumbnail(Cocoa.GIF.NoPoi)
@@ -53,12 +53,12 @@ function EmbedGen(msg: Message, result: Verdict, perf: number) {
                 inline: true,
             },
             {
-                name: "Time",
+                name: "Time Used",
                 value: `${result.limits.time} ms`,
                 inline: true,
             },
             {
-                name: "Memory",
+                name: "Memory Used",
                 value: `${result.limits.mem} KB`,
                 inline: true,
             },

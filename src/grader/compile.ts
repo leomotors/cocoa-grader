@@ -3,11 +3,12 @@ import { writeFile } from "fs/promises";
 
 import { exec } from "./grader";
 
-export type SupportedLang = "C" | "C++" | "Python" | "JavaScript";
+export type SupportedLang = "C" | "C++" | "Python" | "JavaScript" | "Haskell";
 
 export function getLang(str: string): SupportedLang | "Unsupported" {
     if (str == "cpp" || str == "c++" || str == "cc") return "C++";
     if (str == "c") return "C";
+    if (str == "hs" || str == "haskell") return "Haskell";
     if (str == "js" || str == "javascript") return "JavaScript";
     if (str.startsWith("py")) return "Python";
     return "Unsupported";
@@ -16,6 +17,7 @@ export function getLang(str: string): SupportedLang | "Unsupported" {
 const extensions = {
     C: "c",
     "C++": "cpp",
+    Haskell: "hs",
     JavaScript: "js",
     Python: "py",
 };
@@ -41,6 +43,9 @@ export async function Compile(
                 await exec(
                     `g++ temp/${id}.cpp -o temp/${id} -std=c++17 -O2 -lm`
                 );
+                break;
+            case "Haskell":
+                await exec(`ghc temp/${id}.hs -o temp/${id}`);
                 break;
             case "JavaScript":
                 // Do Nothing Lmao
