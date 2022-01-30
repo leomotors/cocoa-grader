@@ -539,6 +539,14 @@ caniuse-lite@^1.0.30001286:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001303.tgz#9b168e4f43ccfc372b86f4bc5a551d9b909c95c9"
   integrity sha512-/Mqc1oESndUNszJP0kx0UaQU9kEv9nNtJ7Kn8AdA0mNnH8eR1cj0kG+NbNuC1Wq/b21eA8prhKRA3bbkjONegQ==
 
+chalk@4.1.2, chalk@^4.0.0:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
+  integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 chalk@^2.0.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
@@ -548,26 +556,18 @@ chalk@^2.0.0:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^4.0.0:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
-  integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
-  dependencies:
-    ansi-styles "^4.1.0"
-    supports-color "^7.1.0"
-
 chalk@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.0.0.tgz#bd96c6bb8e02b96e08c0c3ee2a9d90e050c7b832"
   integrity sha512-/duVOqst+luxCQRKEo4bNxinsOQtMP80ZYm7mMqzuh5PociNL0PvmHFvREJ9ueYL2TxlHjBcmLCdmocx9Vg+IQ==
 
-cocoa-discord-utils@^1.0.0-pre.10:
-  version "1.0.0-pre.10"
-  resolved "https://registry.yarnpkg.com/cocoa-discord-utils/-/cocoa-discord-utils-1.0.0-pre.10.tgz#8d012532742c6f5e8f1f552da72c15813e77f913"
-  integrity sha512-D97lK24IU9Ge8fwadvirB2Xco1jsHORu2MtKvJ7dp7m0j0REjRHgUFCU+pQN4lZh1odAjpsKlBRNk8DakVsDXg==
+cocoa-discord-utils@^1.0.0-rc.1:
+  version "1.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/cocoa-discord-utils/-/cocoa-discord-utils-1.0.0-rc.1.tgz#3aa9e7c97f6e7e5f1602be1631c5125f7d86eaa6"
+  integrity sha512-woXamAPLhiZz9AGJQV3/C6Wu3jG5+qMkOUENCIu4yCzNZuGC25UDrlAnCYgGxw2RlbFBtHjYhOFdXyc2+GNt9w==
   dependencies:
     "@discordjs/builders" "^0.12.0"
-    chalk "^5.0.0"
+    chalk "4.1.2"
     discord.js "^13.6.0"
 
 color-convert@^1.9.0:

@@ -26,7 +26,7 @@ export const status: CocoaSlash = {
             )
             .setColor(Cocoa.Color)
             .setThumbnail(Cocoa.GIF.Nigerundayo)
-            .addFields(...(await getStatusFields()))
+            .addFields(...(await getStatusFields(ctx)))
             .setFooter(Cocoa.Footer(ctx));
 
         await ctx.reply({ embeds: [e.toJSON()], ephemeral: ephe });

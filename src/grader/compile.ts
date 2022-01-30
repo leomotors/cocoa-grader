@@ -3,11 +3,12 @@ import { writeFile } from "fs/promises";
 
 import { exec } from "./grader";
 
-export type SupportedLang = "C" | "C++" | "Python";
+export type SupportedLang = "C" | "C++" | "Python" | "JavaScript";
 
 export function getLang(str: string): SupportedLang | "Unsupported" {
     if (str == "cpp" || str == "c++" || str == "cc") return "C++";
     if (str == "c") return "C";
+    if (str == "js" || str == "javascript") return "JavaScript";
     if (str.startsWith("py")) return "Python";
     return "Unsupported";
 }
@@ -15,6 +16,7 @@ export function getLang(str: string): SupportedLang | "Unsupported" {
 const extensions = {
     C: "c",
     "C++": "cpp",
+    JavaScript: "js",
     Python: "py",
 };
 
@@ -40,8 +42,11 @@ export async function Compile(
                     `g++ temp/${id}.cpp -o temp/${id} -std=c++17 -O2 -lm`
                 );
                 break;
-            case "Python":
+            case "JavaScript":
                 // Do Nothing Lmao
+                break;
+            case "Python":
+                // Do Nothing too Lmao
                 break;
         }
     } catch (error) {
@@ -51,7 +56,8 @@ export async function Compile(
     return true;
 }
 
-export function getECmd(lang: string, id: string) {
+export function getECmd(lang: keyof typeof extensions, id: string) {
+    if (lang == "JavaScript") return `node ./temp/${id}.js`;
     if (lang == "Python") return `python3 ./temp/${id}.py`;
     return `./temp/${id}`;
 }

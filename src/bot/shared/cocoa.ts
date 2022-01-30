@@ -10,6 +10,10 @@ export namespace Cocoa {
             "https://c.tenor.com/M8oRDrKLlUoAAAAC/gochiusa-cocoa.gif";
         export const Nigerundayo =
             "https://c.tenor.com/82-e-VM5qNwAAAAC/gochiusa-cocoa.gif";
+        export const CoffeeNomu =
+            "https://c.tenor.com/Opn-i9gh6fsAAAAC/%E3%81%93%E3%81%93%E3%81%82-%E3%81%94%E3%81%A1%E3%81%86%E3%81%95.gif";
+        export const NoPoi =
+            "https://c.tenor.com/EnFZ1mgZBFYAAAAC/gochiusa-cocoa.gif";
     }
 
     export function Footer(ctx: CommandInteraction | Message) {

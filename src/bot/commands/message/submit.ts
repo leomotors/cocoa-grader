@@ -1,11 +1,75 @@
 import { CocoaMessage } from "cocoa-discord-utils/message";
+import { Author } from "cocoa-discord-utils/template";
+
+import { Message } from "discord.js";
+
+import { Embed } from "@discordjs/builders";
 
 import chalk from "chalk";
 import fetch from "node-fetch";
 
 import { getLang } from "../../../grader/compile";
-import Grade from "../../../grader/grader";
+import Grade, { Verdict } from "../../../grader/grader";
 import { problemExists } from "../../../grader/problems";
+import { Cocoa } from "../../shared";
+
+function EmbedGen(msg: Message, result: Verdict, perf: number) {
+    const pb = result.problem;
+
+    return new Embed()
+        .setAuthor(Author(msg))
+        .setTitle(pb.title)
+        .setDescription(
+            `Description: ${pb.description}\nSubmission Status: ${result.status}\nSubtasks Verdict: [${result.subtasks}]`
+        )
+        .setColor(Cocoa.Color)
+        .setThumbnail(Cocoa.GIF.NoPoi)
+        .addFields(
+            {
+                name: "Problem Statement",
+                value: `${
+                    pb.statement ? `[Click](${pb.statement})` : "Does not exist"
+                }`,
+                inline: true,
+            },
+            {
+                name: "Graded on",
+                value: `${process.platform} ${process.arch}`,
+                inline: true,
+            },
+            {
+                name: "Time Compensation",
+                value: `${process.env.EXTRA_TIME ?? 1}x`,
+                inline: true,
+            },
+            {
+                name: "Submission ID",
+                value: "#" + result.submissionId.split("-")[0],
+                inline: true,
+            },
+            {
+                name: "Your Score",
+                value: `${result.score}/${pb.maxScore ?? 100}`,
+                inline: true,
+            },
+            {
+                name: "Time",
+                value: `${result.limits.time} ms`,
+                inline: true,
+            },
+            {
+                name: "Memory",
+                value: `${result.limits.mem} KB`,
+                inline: true,
+            },
+            {
+                name: "Total Grading Time",
+                value: `${Math.round(perf)} ms`,
+                inline: true,
+            }
+        )
+        .setFooter(Cocoa.Footer(msg));
+}
 
 // * Accept Submission and Print Result
 export const submit: CocoaMessage = {
@@ -67,12 +131,10 @@ export const submit: CocoaMessage = {
 
         const start = performance.now();
         const result = await Grade(problem, userCode, lang, msg.author.tag);
-        const end = performance.now();
+        const perf = performance.now() - start;
 
-        sentmsg.edit(
-            `Finished in ${Math.round(end - start) / 1000} seconds\n${
-                result.status
-            } ${result.score} [${result.subtasks}]`
-        );
+        sentmsg.edit({
+            embeds: [EmbedGen(msg, result, perf).toJSON()],
+        });
     },
 };

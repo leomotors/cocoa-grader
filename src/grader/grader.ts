@@ -9,10 +9,15 @@ import { shortenVerdicts } from "./utils";
 
 export const exec = promisify(execCb);
 
+export type Limits = { time: number; mem: number };
+
 export interface Verdict {
     status: "Compilation Error" | "Rejected" | "Accepted";
     score: number;
+    problem: Problem;
     subtasks: string;
+    submissionId: string;
+    limits: Limits;
 }
 
 export const VerdictDict = {
@@ -36,12 +41,21 @@ export default async function Grade(
     const tag = `[#${submissionId.split("-")[0]} by ${submitter}]`;
     console.log(`${tag} Working on ${problem.title} (Language: ${lang})`);
 
+    const limits = {
+        time: 0,
+        mem: 0,
+    };
+
     const res = await Compile(lang, code, submissionId);
     if (!res) {
+        console.log(`${tag} Graded ${problem.title} [COMPILATION ERROR]`);
         return {
             status: "Compilation Error",
             score: 0,
-            subtasks: "E",
+            problem,
+            subtasks: "E".repeat(Object.keys(problem.subtasks).length),
+            submissionId,
+            limits,
         };
     }
 
@@ -53,7 +67,8 @@ export default async function Grade(
         const subtaskVerdict = await GradeCase(
             getECmd(lang, submissionId),
             `./problems/${problemID}/testcase/${subtaskName}`,
-            problem
+            problem,
+            limits
         );
 
         totalScore += subtaskVerdict == "Correct Answer" ? subtaskScore : 0;
@@ -66,14 +81,18 @@ export default async function Grade(
         status:
             totalScore == (problem.maxScore ?? 100) ? "Accepted" : "Rejected",
         score: totalScore,
+        problem,
         subtasks: subtaskStr,
+        submissionId,
+        limits,
     };
 }
 
 async function GradeCase(
     execloc: string,
     caseloc: string,
-    problem: Problem
+    problem: Problem,
+    limits: Limits
 ): Promise<CaseVerdict> {
     try {
         const runRes = await exec(
@@ -83,8 +102,15 @@ async function GradeCase(
             } -m ${problem.memorylimit * 1000} ${execloc}`
         );
 
-        if (runRes.stderr.startsWith("TIMEOUT")) return "Time Limit Exceeded";
-        if (!runRes.stderr.startsWith("FINISHED")) return "Runtime Error";
+        const toTok = runRes.stderr.split(" ").filter((s) => s.length > 0);
+        const time = +toTok[2] * 1000;
+        const mem = +toTok[6];
+
+        limits.time = Math.max(limits.time, isNaN(time) ? 0 : time);
+        limits.mem = Math.max(limits.mem, isNaN(mem) ? 0 : mem);
+
+        if (toTok[0] == "TIMEOUT") return "Time Limit Exceeded";
+        if (toTok[0] != "FINISHED") return "Runtime Error";
 
         if (
             await check(runRes.stdout, `${caseloc}.out`, problem.compare ?? "W")

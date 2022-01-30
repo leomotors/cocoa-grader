@@ -33,7 +33,7 @@ export const aboutme: CocoaSlash = {
                     inline: true,
                 },
                 {
-                    name: "Extra Time",
+                    name: "Time Compensation",
                     value: `${process.env.EXTRA_TIME ?? "1"}x`,
                     inline: true,
                 },
