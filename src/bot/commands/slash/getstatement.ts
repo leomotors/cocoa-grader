@@ -60,7 +60,7 @@ export const getstatement: CocoaSlash = {
                 },
                 {
                     name: "Statement",
-                    value: `[Click](${Problem.statement})`,
+                    value: `[CLICK](${Problem.statement})`,
                     inline: true,
                 }
             )

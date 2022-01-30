@@ -13,10 +13,10 @@ import Grade, { Verdict } from "../../../grader/grader";
 import { problemExists } from "../../../grader/problems";
 import { Cocoa } from "../../shared";
 
-function EmbedGen(msg: Message, result: Verdict, perf: number) {
+function EmbedGen(msg: Message, result: Verdict, perf: number, lang: string) {
     const pb = result.problem;
 
-    return new Embed()
+    const e = new Embed()
         .setAuthor(Author(msg))
         .setTitle(pb.title)
         .setDescription(
@@ -26,12 +26,21 @@ function EmbedGen(msg: Message, result: Verdict, perf: number) {
         .setThumbnail(Cocoa.GIF.NoPoi)
         .addFields(
             {
-                name: "Problem Statement",
-                value: `${
-                    pb.statement ? `[Click](${pb.statement})` : "Does not exist"
-                }`,
+                name: "Submission ID",
+                value: "#" + result.submissionId.split("-")[0],
                 inline: true,
             },
+            {
+                name: "Language",
+                value: lang,
+                inline: true,
+            },
+            {
+                name: "Your Score",
+                value: `${result.score}/${pb.maxScore ?? 100}`,
+                inline: true,
+            },
+
             {
                 name: "Graded on",
                 value: `${process.platform} ${process.arch}`,
@@ -45,16 +54,6 @@ function EmbedGen(msg: Message, result: Verdict, perf: number) {
             {
                 name: "Time Compensation",
                 value: `${process.env.EXTRA_TIME ?? 1}x`,
-                inline: true,
-            },
-            {
-                name: "Submission ID",
-                value: "#" + result.submissionId.split("-")[0],
-                inline: true,
-            },
-            {
-                name: "Your Score",
-                value: `${result.score}/${pb.maxScore ?? 100}`,
                 inline: true,
             },
             {
@@ -74,6 +73,8 @@ function EmbedGen(msg: Message, result: Verdict, perf: number) {
             }
         )
         .setFooter(Cocoa.Footer(msg));
+
+    return pb.statement ? e.setURL(pb.statement) : e;
 }
 
 // * Accept Submission and Print Result
@@ -140,7 +141,7 @@ export const submit: CocoaMessage = {
 
         sentmsg.edit({
             content: "Graded!",
-            embeds: [EmbedGen(msg, result, perf).toJSON()],
+            embeds: [EmbedGen(msg, result, perf, lang).toJSON()],
         });
     },
 };
