@@ -1,9 +1,6 @@
 import { CocoaMessage } from "cocoa-discord-utils/message";
-import { Author } from "cocoa-discord-utils/template";
 
 import { Message } from "discord.js";
-
-import { Embed } from "@discordjs/builders";
 
 import chalk from "chalk";
 import fetch from "node-fetch";
@@ -11,19 +8,20 @@ import fetch from "node-fetch";
 import { getLang } from "../../../grader/compile";
 import Grade, { Verdict } from "../../../grader/grader";
 import { problemExists } from "../../../grader/problems";
-import { Cocoa } from "../../shared";
+import { Cocoa, style } from "../../shared";
 
 function EmbedGen(msg: Message, result: Verdict, perf: number, lang: string) {
     const pb = result.problem;
 
-    const e = new Embed()
-        .setAuthor(Author(msg))
+    const e = style
+        .use(msg)
         .setTitle(pb.title)
         .setDescription(
             `Description: ${pb.description}\nTime Limit: ${pb.timelimit} seconds\nMemory Limit: ${pb.memorylimit} MB\nSubmission Status: **${result.status}**\nSubtasks Verdict: [${result.subtasks}]`
         )
-        .setColor(Cocoa.Color)
-        .setThumbnail(Cocoa.GIF.NoPoi)
+        .setThumbnail(
+            result.status == "Accepted" ? Cocoa.GIF.ThumbsUp : Cocoa.GIF.NoPoi
+        )
         .addFields(
             {
                 name: "Submission ID",
@@ -71,8 +69,7 @@ function EmbedGen(msg: Message, result: Verdict, perf: number, lang: string) {
                 value: `${Math.round(perf)} ms`,
                 inline: true,
             }
-        )
-        .setFooter(Cocoa.Footer(msg));
+        );
 
     return pb.statement ? e.setURL(pb.statement) : e;
 }

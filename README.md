@@ -16,7 +16,7 @@ A Discord Bot Grader, more specifically, '*Waifu*'
 
 - pshved/timeout installed to bin, [see here](https://unix.stackexchange.com/a/44988)
 
-- Use some powerful devices (I use Raspberry Pi 😖)
+- Use some powerful devices (don't use Raspberry Pi 😖 but I use)
 
 ## 🖼️ Gallery of Cocoa Grader
 
