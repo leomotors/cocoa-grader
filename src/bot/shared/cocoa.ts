@@ -1,3 +1,4 @@
+import { createEmbedStyle } from "cocoa-discord-utils/*";
 import { getElapsed } from "cocoa-discord-utils/meta";
 
 import { CommandInteraction, Message } from "discord.js";
@@ -14,6 +15,8 @@ export namespace Cocoa {
             "https://c.tenor.com/Opn-i9gh6fsAAAAC/%E3%81%93%E3%81%93%E3%81%82-%E3%81%94%E3%81%A1%E3%81%86%E3%81%95.gif";
         export const NoPoi =
             "https://c.tenor.com/EnFZ1mgZBFYAAAAC/gochiusa-cocoa.gif";
+        export const ThumbsUp =
+            "https://c.tenor.com/O46FOm38idkAAAAC/thumbs-up-cocoa.gif";
     }
 
     export function Footer(ctx: CommandInteraction | Message) {
@@ -24,3 +27,9 @@ export namespace Cocoa {
         };
     }
 }
+
+export const style = createEmbedStyle({
+    author: "invoker",
+    color: Cocoa.Color,
+    footer: (ctx) => Cocoa.Footer(ctx),
+});

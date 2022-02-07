@@ -1,10 +1,8 @@
 import { CocoaVersion } from "cocoa-discord-utils/meta";
 import { CocoaSlash } from "cocoa-discord-utils/slash";
-import { Author, CocoaBuilder, ephemeral } from "cocoa-discord-utils/template";
+import { CocoaBuilder, ephemeral } from "cocoa-discord-utils/template";
 
-import { Embed } from "@discordjs/builders";
-
-import { Cocoa } from "../../shared";
+import { Cocoa, style } from "../../shared";
 
 export const aboutme: CocoaSlash = {
     command: CocoaBuilder("aboutme", "Get Info about me!")
@@ -12,14 +10,13 @@ export const aboutme: CocoaSlash = {
         .toJSON(),
     func: async (ctx) => {
         const ephe = ctx.options.getBoolean("ephemeral") || false;
-        const embed = new Embed()
-            .setAuthor(Author(ctx))
+        const embed = style
+            .use(ctx)
             .setTitle("Cocoa Grader")
 
             .setDescription(
                 "I am Cocoa Grader! Who will carefully grade your code! 💖💖"
             )
-            .setColor(Cocoa.Color)
             .setThumbnail(Cocoa.GIF.お姉ちゃんに任せなさい)
             .addFields(
                 {
@@ -47,8 +44,7 @@ export const aboutme: CocoaSlash = {
                     value: "[Click](https://leomotors.github.io/stupid-problems/)",
                     inline: true,
                 }
-            )
-            .setFooter(Cocoa.Footer(ctx));
+            );
 
         await ctx.reply({
             embeds: [embed.toJSON()],

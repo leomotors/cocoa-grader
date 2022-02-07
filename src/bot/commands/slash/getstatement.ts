@@ -1,10 +1,9 @@
 import { CocoaSlash } from "cocoa-discord-utils/slash";
-import { Author } from "cocoa-discord-utils/template";
 
-import { Embed, SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 import { getProblems } from "../../../grader/problems";
-import { Cocoa } from "../../shared";
+import { Cocoa, style } from "../../shared";
 
 export const getstatement: CocoaSlash = {
     command: new SlashCommandBuilder()
@@ -28,8 +27,8 @@ export const getstatement: CocoaSlash = {
             return;
         }
 
-        const embed = new Embed()
-            .setAuthor(Author(ctx))
+        const embed = style
+            .use(ctx)
             .setTitle(Problem.title)
             .setDescription(Problem.description)
             .addFields(
@@ -64,9 +63,7 @@ export const getstatement: CocoaSlash = {
                     inline: true,
                 }
             )
-            .setColor(Cocoa.Color)
-            .setThumbnail(Cocoa.GIF.CoffeeNomu)
-            .setFooter(Cocoa.Footer(ctx));
+            .setThumbnail(Cocoa.GIF.CoffeeNomu);
 
         if (Problem.statement)
             await ctx.reply({
