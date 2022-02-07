@@ -1,4 +1,4 @@
-import { createEmbedStyle } from "cocoa-discord-utils/*";
+import { createEmbedStyle } from "cocoa-discord-utils";
 import { getElapsed } from "cocoa-discord-utils/meta";
 
 import { CommandInteraction, Message } from "discord.js";

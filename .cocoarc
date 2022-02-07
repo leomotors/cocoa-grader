@@ -1,0 +1,4 @@
+{
+    "messagePath": "./src/bot/commands/message",
+    "slashPath": "./src/bot/commands/slash"
+}

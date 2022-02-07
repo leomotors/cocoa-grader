@@ -1,6 +1,6 @@
 {
   "name": "cocoa-grader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Discord Bot Grader",
   "main": "dist/bot/client.js",
   "repository": "https://github.com/Leomotors/cocoa-grader",
@@ -19,18 +19,18 @@
   "dependencies": {
     "@discordjs/builders": "^0.12.0",
     "chalk": "^5.0.0",
-    "cocoa-discord-utils": "^1.0.0-rc.1",
+    "cocoa-discord-utils": "^1.0.0-rc.2",
     "discord.js": "^13.6.0",
-    "dotenv": "^14.3.2",
+    "dotenv": "^16.0.0",
     "node-fetch": "^3.2.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^3.1.1",
-    "@types/node": "^17.0.13",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
+    "@types/node": "^17.0.15",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.10.1",
-    "@typescript-eslint/parser": "^5.10.1",
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
+    "@typescript-eslint/parser": "^5.10.2",
     "eslint": "^8.8.0",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
