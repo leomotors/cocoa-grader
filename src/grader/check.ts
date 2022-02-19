@@ -4,6 +4,21 @@ function convertToTokens(s: string): string[] {
     return s.split(/\s+/).filter((s) => s.length > 0);
 }
 
+/**
+ * **W**: Token Compare (Exact, number and string)
+ *
+ * **F4**: Float Compare (Relative Error <= 10^-4)
+ *
+ * **F6**: Float Compare (Relative Error <= 10^-6)
+ *
+ * **FA4**: Float Compare (Absolute Error <= 10^-4)
+ *
+ * **FA6**: Float Compare (Absolute Error <= 10^-6)
+ *
+ * *a little credit* to GitHub Copilot who help me write the last 3 lines (F6 to FA6)
+ * by infering from what I have written in the second line (F4)
+ * *AI these days are so smart and useful* ✨🤩
+ */
 export type CompareType = "W" | "F4" | "F6" | "FA4" | "FA6";
 
 function compare(user: string, file: string, type: CompareType): boolean {

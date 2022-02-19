@@ -25,8 +25,8 @@ const client = new Client(CocoaOptions);
 const msgcenter = new MessageCenter(client, { mention: true });
 msgcenter.addCog(CocoaMsg);
 msgcenter.validateCommands();
-msgcenter.on("error", async (err, msg) => {
-    await msg.reply(`Ara, Error Occured: ${err}`);
+msgcenter.on("error", async (name, err, msg) => {
+    await msg.reply(`あら？, Error Occured: ${err}`);
 });
 
 const slashcenter = new SlashCenter(
@@ -35,8 +35,8 @@ const slashcenter = new SlashCenter(
 );
 slashcenter.addCog(Cocoa);
 slashcenter.validateCommands();
-slashcenter.on("error", async (err, ctx) => {
-    await ctx.reply(`Error Occured: ${err}`);
+slashcenter.on("error", async (name, err, ctx) => {
+    await ctx.reply(`あら？, Error Occured: ${err}`);
 });
 
 const groupLoader = new ActivityGroupLoader("data/activities.json");
@@ -44,7 +44,7 @@ const groupLoader = new ActivityGroupLoader("data/activities.json");
 client.on("ready", (cli) => {
     console.log(
         chalk.cyan(
-            `ココアお姉ちゃん 「${cli.user.tag}」 ${process
+            `ココアお姉ちゃん 「${cli.user.tag}」 が${process
                 .uptime()
                 .toFixed(2)}秒で 準備完了です!`
         )

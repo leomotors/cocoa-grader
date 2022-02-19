@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { exec as execCb } from "child_process";
 import { promisify } from "util";
 import { v4 as uuid } from "uuid";
@@ -5,7 +6,7 @@ import { v4 as uuid } from "uuid";
 import { check } from "./check";
 import { Compile, getECmd, SupportedLang } from "./compile";
 import { getProblems, Problem } from "./problems";
-import { shortenVerdicts } from "./utils";
+import { numberToAlphabet, shortenVerdicts } from "./utils";
 
 export const exec = promisify(execCb);
 
@@ -60,19 +61,46 @@ export default async function Grade(
     }
 
     let totalScore = 0;
-    const subtaskVerdicts: CaseVerdict[] = [];
+    const ecmd = getECmd(lang, submissionId);
+    const subtaskVerdicts: string[] = [];
     for (const [subtaskName, subtaskScore] of Object.entries(
         problem.subtasks
     )) {
-        const subtaskVerdict = await GradeCase(
-            getECmd(lang, submissionId),
-            `./problems/${problemID}/testcase/${subtaskName}`,
-            problem,
-            limits
-        );
+        if (typeof subtaskScore == "number") {
+            const subtaskVerdict = await GradeCase(
+                ecmd,
+                `./problems/${problemID}/testcase/${subtaskName}`,
+                problem,
+                limits
+            );
 
-        totalScore += subtaskVerdict == "Correct Answer" ? subtaskScore : 0;
-        subtaskVerdicts.push(subtaskVerdict);
+            totalScore += subtaskVerdict == "Correct Answer" ? subtaskScore : 0;
+            subtaskVerdicts.push(VerdictDict[subtaskVerdict]);
+            continue;
+        }
+
+        let subtasksVerdict = "";
+        let subtasksScore = 0;
+        let maxsubtaskScore = 0;
+        for (const [id, subtask] of Object.entries(subtaskScore.scores)) {
+            const subtaskVerdict = await GradeCase(
+                ecmd,
+                `./problems/${problemID}/testcase/${subtaskName}${numberToAlphabet(
+                    +id
+                )}`,
+                problem,
+                limits
+            );
+
+            subtasksScore += subtaskVerdict == "Correct Answer" ? subtask : 0;
+            maxsubtaskScore += subtask;
+            subtasksVerdict += VerdictDict[subtaskVerdict];
+        }
+
+        subtaskVerdicts.push(`[${subtasksVerdict}]`);
+        if (!subtaskScore.grouped || subtasksScore == maxsubtaskScore) {
+            totalScore += subtasksScore;
+        }
     }
 
     const subtaskStr = shortenVerdicts(subtaskVerdicts);
@@ -120,6 +148,13 @@ async function GradeCase(
             return "Wrong Answer";
         }
     } catch (error) {
+        if (`${error}`.includes("timeout --help")) {
+            console.log(
+                chalk.yellow(
+                    "You probably did not installed pshved/timeout, do you?"
+                )
+            );
+        }
         return "Runtime Error";
     }
 }

@@ -4,6 +4,19 @@ All notable changes to Kawaii Cocoa Grader will be documented here
 
 Changelog before 0.2.2 will not be noted here
 
+## [1.0.2] - 2022-02-20
+
+- Upgrade to Cocoa Discord Utils 1.0.0-rc.3 and use its new feature
+
+- problems/manifest.json is no longer needed, the grader wil list directory
+and attempt import
+
+- Now supports Subtasks
+
+- Now warns you if you forget to install pshved/timeout
+
+- Bot now hints supported languages when user submit unsupported one
+
 ## [1.0.1] - 2022-02-07
 
 - Upgrade to Cocoa Discord Utils 1.0.0-rc.2 and use its new feature

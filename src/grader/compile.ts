@@ -3,7 +3,14 @@ import { writeFile } from "fs/promises";
 
 import { exec } from "./grader";
 
-export type SupportedLang = "C" | "C++" | "Python" | "JavaScript" | "Haskell";
+export const supportedLang = [
+    "C",
+    "C++",
+    "Python",
+    "JavaScript",
+    "Haskell",
+] as const;
+export type SupportedLang = typeof supportedLang[number];
 
 export function getLang(str: string): SupportedLang | "Unsupported" {
     if (str == "cpp" || str == "c++" || str == "cc") return "C++";

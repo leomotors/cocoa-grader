@@ -2,23 +2,35 @@ import chalk from "chalk";
 import fs from "fs/promises";
 
 import { CompareType } from "./check";
+import { exec } from "./grader";
+
+export interface Subtask {
+    grouped?: boolean;
+    scores: number[];
+}
 
 export interface Problem {
     title: string;
     description: string;
+    // * Time Limit in Seconds
     timelimit: number;
+    // * Memory Limit in MB
     memorylimit: number;
-    subtasks: { [name: string]: number };
+    subtasks: { [name: string]: number | Subtask };
+    // * Default = 100
+    // TODO Auto Infer maxScore from subtasks
     maxScore?: number;
     statement?: string;
+    // * Default = "W"
     compare?: CompareType;
 }
 
 let problemsList: { [id: string]: Problem } = {};
 
 export async function loadProblems() {
-    const buffer = await fs.readFile("problems/manifest.json");
-    const problems: string[] = JSON.parse(buffer.toString()).problemLists;
+    const problems = (await exec("ls problems")).stdout
+        .split("\n")
+        .filter((l) => !l.includes(".") && l.length > 0);
 
     if (!problems?.length) {
         console.log(
@@ -28,9 +40,15 @@ export async function loadProblems() {
 
     const problemsLoaded: { [id: string]: Problem } = {};
     for (const problemID of problems) {
-        const buffer = await fs.readFile(`problems/${problemID}/manifest.json`);
-        const problem: Problem = JSON.parse(buffer.toString());
-        problemsLoaded[problemID] = problem;
+        try {
+            const buffer = await fs.readFile(
+                `problems/${problemID}/manifest.json`
+            );
+            const problem: Problem = JSON.parse(buffer.toString());
+            problemsLoaded[problemID] = problem;
+        } catch (err) {
+            console.log(chalk.red(`Cannot load ${problemID}: ${err}`));
+        }
     }
 
     problemsList = problemsLoaded;
@@ -47,5 +65,5 @@ export function getProblems(id: string) {
 }
 
 export function problemExists(id: string): boolean {
-    return problemsList[id] !== undefined;
+    return id in problemsList;
 }

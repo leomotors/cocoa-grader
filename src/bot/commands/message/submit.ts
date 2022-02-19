@@ -5,7 +5,7 @@ import { Message } from "discord.js";
 import chalk from "chalk";
 import fetch from "node-fetch";
 
-import { getLang } from "../../../grader/compile";
+import { getLang, supportedLang } from "../../../grader/compile";
 import Grade, { Verdict } from "../../../grader/grader";
 import { problemExists } from "../../../grader/problems";
 import { Cocoa, style } from "../../shared";
@@ -126,7 +126,9 @@ export const submit: CocoaMessage = {
 
         const lang = getLang(userLang);
         if (lang == "Unsupported") {
-            await msg.reply("Unsupported Language");
+            await msg.reply(
+                `Unsupported Language! The supported languages are ${supportedLang}`
+            );
             return;
         }
 

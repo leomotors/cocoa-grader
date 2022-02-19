@@ -32,8 +32,17 @@ A Discord Bot Grader, more specifically, '*Waifu Discord Bot*'
 
 ## 🔪 Cutting Edge
 
-Branch `future-lib` contains `cocoa-discord-utils` in the version that is not
-published on npm yet. Error will surely occur.
+Branch `future-lib` (if is ahead of main) contains `cocoa-discord-utils`
+in the version that is not published on npm yet. Error will surely occur if you run it.
+
+## 🔧 Adding a problem
+
+Create a folder with problem ID as the name of it
+
+Inside that folder, you should have manifest.json
+
+For schema of manifest.json please look [here](./src/grader/problems.ts) or
+at src/problems of [stupid-problems](https://github.com/Leomotors/stupid-problems)
 
 ## 🖼️ Gallery of Cocoa Grader
 
