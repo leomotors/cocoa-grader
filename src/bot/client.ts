@@ -2,7 +2,8 @@ import "dotenv/config";
 
 import {
     ActivityGroupLoader,
-    setConsoleEvent,
+    checkLogin,
+    ConsoleManager,
     useActivityGroup,
 } from "cocoa-discord-utils";
 import { MessageCenter } from "cocoa-discord-utils/message";
@@ -24,7 +25,6 @@ const client = new Client(CocoaOptions);
 
 const msgcenter = new MessageCenter(client, { mention: true });
 msgcenter.addCog(CocoaMsg);
-msgcenter.validateCommands();
 msgcenter.on("error", async (name, err, msg) => {
     await msg.reply(`あら？, Error Occured: ${err}`);
 });
@@ -34,7 +34,6 @@ const slashcenter = new SlashCenter(
     process.env.GUILD_IDS?.split(",") ?? []
 );
 slashcenter.addCog(Cocoa);
-slashcenter.validateCommands();
 slashcenter.on("error", async (name, err, ctx) => {
     await ctx.reply(`あら？, Error Occured: ${err}`);
 });
@@ -53,23 +52,6 @@ client.on("ready", (cli) => {
     useActivityGroup(client, groupLoader);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+new ConsoleManager().useLogout(client).useReload(groupLoader);
 
-// * Console Zone
-setConsoleEvent((cmd: string) => {
-    if (cmd.startsWith("logout")) {
-        client.destroy();
-        console.log(chalk.cyan("Logged out Successfully!"));
-        process.exit(0);
-    }
-
-    if (cmd.startsWith("reload")) {
-        loadProblems();
-        groupLoader.reload();
-        return;
-    }
-
-    console.log(
-        chalk.yellow(`[Console WARN] Unknown Command ${cmd.split(" ")[0]}`)
-    );
-});
+checkLogin(client, process.env.DISCORD_TOKEN);

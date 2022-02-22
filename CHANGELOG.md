@@ -4,6 +4,10 @@ All notable changes to Kawaii Cocoa Grader will be documented here
 
 Changelog before 0.2.2 will not be noted here
 
+## [1.0.3] - 2022-02-23
+
+- Upgrade to Cocoa Discord Utils 1.0.0 and use its new feature
+
 ## [1.0.2] - 2022-02-20
 
 - Upgrade to Cocoa Discord Utils 1.0.0-rc.3 and use its new feature

@@ -1,15 +1,19 @@
 import { CocoaVersion } from "cocoa-discord-utils/meta";
 import { CocoaSlash } from "cocoa-discord-utils/slash";
-import { CocoaBuilder, ephemeral } from "cocoa-discord-utils/template";
+import {
+    CocoaBuilder,
+    Ephemeral,
+    getEphemeral,
+} from "cocoa-discord-utils/template";
 
 import { Cocoa, style } from "../../shared";
 
 export const aboutme: CocoaSlash = {
     command: CocoaBuilder("aboutme", "Get Info about me!")
-        .addBooleanOption(ephemeral())
+        .addBooleanOption(Ephemeral())
         .toJSON(),
     func: async (ctx) => {
-        const ephe = ctx.options.getBoolean("ephemeral") || false;
+        const ephemeral = getEphemeral(ctx);
         const embed = style
             .use(ctx)
             .setTitle("Cocoa Grader")
@@ -48,7 +52,7 @@ export const aboutme: CocoaSlash = {
 
         await ctx.reply({
             embeds: [embed.toJSON()],
-            ephemeral: ephe,
+            ephemeral,
         });
     },
 };

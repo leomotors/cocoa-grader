@@ -18,6 +18,13 @@ A Discord Bot Grader, more specifically, '*Waifu Discord Bot*'
 
 - Use some powerful devices (don't use Raspberry Pi that I use 😖)
 
+## 🍫 Behind this Bot
+
+This Discord Bot use [Cocoa Discord Utils](https://github.com/Leomotors/cocoa-discord-utils),
+a library written by me for me to simplify things!
+
+The problems are served by [stupid-problems](https://github.com/Leomotors/stupid-problems)
+
 ## 🏷️ Features
 
 - Functional Grader with Time and Memory Limit (but does not prevent `sudo reboot`, use with caution)
@@ -26,14 +33,7 @@ A Discord Bot Grader, more specifically, '*Waifu Discord Bot*'
 
 ### Planned
 
-- Interactive (Library like IOI)
-
-- Better Problem Management System (to be compatible with upcoming [stupid-problems](https://github.com/Leomotors/stupid-problems))
-
-## 🔪 Cutting Edge
-
-Branch `future-lib` (if is ahead of main) contains `cocoa-discord-utils`
-in the version that is not published on npm yet. Error will surely occur if you run it.
+- Interactive (Library like IOI & IPST Camp)
 
 ## 🔧 Adding a problem
 

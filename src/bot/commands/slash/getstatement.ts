@@ -1,4 +1,5 @@
 import { CocoaSlash } from "cocoa-discord-utils/slash";
+import { CocoaOption } from "cocoa-discord-utils/template";
 
 import { SlashCommandBuilder } from "@discordjs/builders";
 
@@ -9,11 +10,8 @@ export const getstatement: CocoaSlash = {
     command: new SlashCommandBuilder()
         .setName("getstatement")
         .setDescription("Get Statement of a Problem")
-        .addStringOption((option) =>
-            option
-                .setName("problem_name")
-                .setDescription("Name of the problem")
-                .setRequired(true)
+        .addStringOption(
+            CocoaOption("problem_name", "Name of the problem", true)
         )
         .toJSON(),
     func: async (ctx) => {

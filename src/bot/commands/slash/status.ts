@@ -2,7 +2,7 @@ import { CocoaBuildTime, CocoaVersion } from "cocoa-discord-utils/meta";
 import { CocoaSlash } from "cocoa-discord-utils/slash";
 import {
     CocoaBuilder,
-    ephemeral,
+    Ephemeral,
     getStatusFields,
 } from "cocoa-discord-utils/template";
 
@@ -10,7 +10,7 @@ import { Cocoa, style } from "../../shared";
 
 export const status: CocoaSlash = {
     command: CocoaBuilder("status", "Get Cocoa's Status")
-        .addBooleanOption(ephemeral())
+        .addBooleanOption(Ephemeral())
         .toJSON(),
     func: async (ctx) => {
         const ephe = ctx.options.getBoolean("ephemeral") ?? false;
