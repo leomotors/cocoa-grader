@@ -18,6 +18,7 @@ import { loadProblems } from "../grader/problems";
 
 import { CocoaMsg } from "./commands/message";
 import { Cocoa } from "./commands/slash";
+import { style } from "./shared";
 
 loadProblems();
 
@@ -25,6 +26,7 @@ const client = new Client(CocoaOptions);
 
 const msgcenter = new MessageCenter(client, { mention: true });
 msgcenter.addCog(CocoaMsg);
+msgcenter.useHelpCommand(style);
 msgcenter.on("error", async (name, err, msg) => {
     await msg.reply(`あら？, Error Occured: ${err}`);
 });
@@ -34,6 +36,7 @@ const slashcenter = new SlashCenter(
     process.env.GUILD_IDS?.split(",") ?? []
 );
 slashcenter.addCog(Cocoa);
+slashcenter.useHelpCommand(style);
 slashcenter.on("error", async (name, err, ctx) => {
     await ctx.reply(`あら？, Error Occured: ${err}`);
 });

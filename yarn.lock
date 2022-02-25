@@ -347,10 +347,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.10.tgz#616f16e9d3a2a3d618136b1be244315d95bd7cab"
   integrity sha512-S/3xB4KzyFxYGCppyDt68yzBU9ysL88lSdIah4D6cptdcltc4NCPCAMc0+PCpg/lLIyC7IPvj2Z52OJWeIUkog==
 
-"@types/node@^17.0.19":
-  version "17.0.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.19.tgz#726171367f404bfbe8512ba608a09ebad810c7e6"
-  integrity sha512-PfeQhvcMR4cPFVuYfBN4ifG7p9c+Dlh3yUZR6k+5yQK7wX3gDgVxBly4/WkBRs9x4dmcy1TVl08SY67wwtEvmA==
+"@types/node@^17.0.21":
+  version "17.0.21"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.21.tgz#864b987c0c68d07b4345845c3e63b75edd143644"
+  integrity sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==
 
 "@types/uuid@^8.3.4":
   version "8.3.4"
@@ -561,10 +561,10 @@ chalk@^5.0.0:
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.0.0.tgz#bd96c6bb8e02b96e08c0c3ee2a9d90e050c7b832"
   integrity sha512-/duVOqst+luxCQRKEo4bNxinsOQtMP80ZYm7mMqzuh5PociNL0PvmHFvREJ9ueYL2TxlHjBcmLCdmocx9Vg+IQ==
 
-cocoa-discord-utils@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/cocoa-discord-utils/-/cocoa-discord-utils-1.0.0.tgz#b49f69e406ed0b71daaad73aa6fefc7aa77f7cb2"
-  integrity sha512-5obDl1G2PWoEpCGJyoMiBtgrN/iX9CHznyT/znSMcFl3IMgB9oa2FTNPpekpcCP/z5kFT+O1vwiUl16lZ8XhXw==
+cocoa-discord-utils@^1.1.0-rc.1:
+  version "1.1.0-rc.1"
+  resolved "https://registry.yarnpkg.com/cocoa-discord-utils/-/cocoa-discord-utils-1.1.0-rc.1.tgz#f2871f4e4eb3e31bc5074e43c1c7b965caa4b360"
+  integrity sha512-suWLc9HYgItxUaVHNpuc+q2kt3CJXQW7MDHGJXpjoE6xQSY01VC8iGrBkczrhZDAVZ6Y8e5fmrerN2KunjEF8w==
   dependencies:
     "@discordjs/builders" "^0.12.0"
     chalk "4.1.2"

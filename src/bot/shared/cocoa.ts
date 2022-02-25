@@ -1,7 +1,5 @@
-import { createEmbedStyle } from "cocoa-discord-utils";
+import { Context, EmbedStyle } from "cocoa-discord-utils";
 import { getElapsed } from "cocoa-discord-utils/meta";
-
-import { CommandInteraction, Message } from "discord.js";
 
 export namespace Cocoa {
     export const Color = 0xe0beab;
@@ -19,7 +17,7 @@ export namespace Cocoa {
             "https://c.tenor.com/O46FOm38idkAAAAC/thumbs-up-cocoa.gif";
     }
 
-    export function Footer(ctx: CommandInteraction | Message) {
+    export function Footer(ctx: Context) {
         return {
             text: `Action took ${getElapsed(
                 ctx.createdAt
@@ -28,7 +26,7 @@ export namespace Cocoa {
     }
 }
 
-export const style = createEmbedStyle({
+export const style = new EmbedStyle({
     author: "invoker",
     color: Cocoa.Color,
     footer: (ctx) => Cocoa.Footer(ctx),

@@ -18,6 +18,12 @@ A Discord Bot Grader, more specifically, '*Waifu Discord Bot*'
 
 - Use some powerful devices (don't use Raspberry Pi that I use 😖)
 
+### Known Issues
+
+- Raspberry Pi cannot handle grader tasks 😢😭
+  - JavaScript do not work (Will be reported as Runtime Error)
+  - Unexpected Time Limit
+
 ## 🍫 Behind this Bot
 
 This Discord Bot use [Cocoa Discord Utils](https://github.com/Leomotors/cocoa-discord-utils),
