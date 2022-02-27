@@ -7,7 +7,7 @@ import fetch from "node-fetch";
 
 import { getLang, supportedLang } from "../../../grader/compile";
 import Grade, { Verdict } from "../../../grader/grader";
-import { problemExists } from "../../../grader/problems";
+import { isInteractive, problemExists } from "../../../grader/problems";
 import { Cocoa, style } from "../../shared";
 
 function EmbedGen(msg: Message, result: Verdict, perf: number, lang: string) {
@@ -17,7 +17,13 @@ function EmbedGen(msg: Message, result: Verdict, perf: number, lang: string) {
         .use(msg)
         .setTitle(pb.title)
         .setDescription(
-            `Description: ${pb.description}\nTime Limit: ${pb.timelimit} seconds\nMemory Limit: ${pb.memorylimit} MB\nSubmission Status: **${result.status}**\nSubtasks Verdict: [${result.subtasks}]`
+            `Description: ${pb.description}\nTime Limit: ${
+                pb.timelimit
+            } seconds\nMemory Limit: ${pb.memorylimit} MB\nType: ${
+                pb.type ?? "normal"
+            }\nSubmission Status: **${result.status}**\nSubtasks Verdict: [${
+                result.subtasks
+            }]`
         )
         .setThumbnail(
             result.status == "Accepted" ? Cocoa.GIF.ThumbsUp : Cocoa.GIF.NoPoi
@@ -124,10 +130,13 @@ export const submit: CocoaMessage = {
             return;
         }
 
-        const lang = getLang(userLang);
+        const isInter = isInteractive(problem);
+        const lang = getLang(userLang, isInter);
         if (lang == "Unsupported") {
             await msg.reply(
-                `Unsupported Language! The supported languages are ${supportedLang}`
+                isInter
+                    ? "Unsupported Language! The only supported language for Interactive is C++"
+                    : `Unsupported Language! The supported languages are ${supportedLang}`
             );
             return;
         }

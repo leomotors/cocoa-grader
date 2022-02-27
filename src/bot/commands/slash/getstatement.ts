@@ -46,6 +46,11 @@ export const getstatement: CocoaSlash = {
                     inline: true,
                 },
                 {
+                    name: "Type",
+                    value: Problem.type ?? "normal",
+                    inline: true,
+                },
+                {
                     name: "Subtasks",
                     value: `${Object.keys(Problem.subtasks).length}`,
                     inline: true,

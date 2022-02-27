@@ -9,6 +9,8 @@ export interface Subtask {
     scores: number[];
 }
 
+export const ProblemTypes = ["normal", "interactive"] as const;
+
 export interface Problem {
     title: string;
     description: string;
@@ -16,6 +18,7 @@ export interface Problem {
     timelimit: number;
     // * Memory Limit in MB
     memorylimit: number;
+    type?: typeof ProblemTypes[number];
     subtasks: { [name: string]: number | Subtask };
     // * Default = 100
     // TODO Auto Infer maxScore from subtasks
@@ -66,4 +69,8 @@ export function getProblems(id: string) {
 
 export function problemExists(id: string): boolean {
     return id in problemsList;
+}
+
+export function isInteractive(id: string) {
+    return getProblems(id).type == "interactive";
 }

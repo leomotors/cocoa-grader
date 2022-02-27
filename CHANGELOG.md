@@ -4,7 +4,11 @@ All notable changes to Kawaii Cocoa Grader will be documented here
 
 Changelog before 0.2.2 will not be noted here
 
-## [1.0.4] - 2022-02-24
+## [1.1.0] - 2022-02-27
+
+- Added Interactive (Partial Support)
+
+## [1.0.4] - 2022-02-25
 
 - Implemented features in Cocoa Discord Utils 1.0.0 *(forgot to do that in previous version)*
 

@@ -4,7 +4,7 @@ import { promisify } from "util";
 import { v4 as uuid } from "uuid";
 
 import { check } from "./check";
-import { Compile, getECmd, SupportedLang } from "./compile";
+import { Compile, CompileInteractive, getECmd, SupportedLang } from "./compile";
 import { getProblems, Problem } from "./problems";
 import { numberToAlphabet, shortenVerdicts } from "./utils";
 
@@ -28,7 +28,7 @@ export const VerdictDict = {
     "Runtime Error": "x",
 };
 
-export type CaseVerdict = keyof typeof VerdictDict;
+export type CaseVerdict = keyof typeof VerdictDict | number;
 
 export default async function Grade(
     problemID: string,
@@ -47,7 +47,10 @@ export default async function Grade(
         mem: 0,
     };
 
-    const res = await Compile(lang, code, submissionId);
+    const res =
+        problem.type == "interactive"
+            ? await CompileInteractive(problemID, code, submissionId)
+            : await Compile(lang, code, submissionId);
     if (!res) {
         console.log(`${tag} Graded ${problem.title} [COMPILATION ERROR]`);
         return {
@@ -60,6 +63,7 @@ export default async function Grade(
         };
     }
 
+    const isInteractive = problem.type == "interactive";
     let totalScore = 0;
     const ecmd = getECmd(lang, submissionId);
     const subtaskVerdicts: string[] = [];
@@ -74,8 +78,17 @@ export default async function Grade(
                 limits
             );
 
-            totalScore += subtaskVerdict == "Correct Answer" ? subtaskScore : 0;
-            subtaskVerdicts.push(VerdictDict[subtaskVerdict]);
+            totalScore +=
+                isInteractive && typeof subtaskVerdict == "number"
+                    ? subtaskVerdict
+                    : subtaskVerdict == "Correct Answer"
+                    ? subtaskScore
+                    : 0;
+            subtaskVerdicts.push(
+                typeof subtaskVerdict == "number"
+                    ? ` ${subtaskVerdict} `
+                    : VerdictDict[subtaskVerdict]
+            );
             continue;
         }
 
@@ -92,9 +105,17 @@ export default async function Grade(
                 limits
             );
 
-            subtasksScore += subtaskVerdict == "Correct Answer" ? subtask : 0;
+            subtasksScore +=
+                isInteractive && typeof subtaskVerdict == "number"
+                    ? subtaskVerdict
+                    : subtaskVerdict == "Correct Answer"
+                    ? subtask
+                    : 0;
             maxsubtaskScore += subtask;
-            subtasksVerdict += VerdictDict[subtaskVerdict];
+            subtasksVerdict +=
+                typeof subtaskVerdict == "number"
+                    ? ` ${subtaskVerdict} `
+                    : VerdictDict[subtaskVerdict];
         }
 
         subtaskVerdicts.push(`[${subtasksVerdict}]`);
@@ -108,7 +129,7 @@ export default async function Grade(
     return {
         status:
             totalScore == (problem.maxScore ?? 100) ? "Accepted" : "Rejected",
-        score: totalScore,
+        score: Math.floor(totalScore * 100) / 100,
         problem,
         subtasks: subtaskStr,
         submissionId,
@@ -139,6 +160,12 @@ async function GradeCase(
 
         if (toTok[0] == "TIMEOUT") return "Time Limit Exceeded";
         if (toTok[0] != "FINISHED") return "Runtime Error";
+
+        if (problem.type == "interactive") {
+            const casted = +runRes.stdout;
+
+            return isNaN(casted) ? 0 : casted;
+        }
 
         if (
             await check(runRes.stdout, `${caseloc}.out`, problem.compare ?? "W")

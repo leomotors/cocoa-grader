@@ -12,13 +12,26 @@ export const supportedLang = [
 ] as const;
 export type SupportedLang = typeof supportedLang[number];
 
-export function getLang(str: string): SupportedLang | "Unsupported" {
+function _getLang(str: string): SupportedLang | "Unsupported" {
     if (str == "cpp" || str == "c++" || str == "cc") return "C++";
     if (str == "c") return "C";
     if (str == "hs" || str == "haskell") return "Haskell";
     if (str == "js" || str == "javascript") return "JavaScript";
     if (str.startsWith("py")) return "Python";
     return "Unsupported";
+}
+
+export function getLang(
+    str: string,
+    isInteractive: boolean
+): SupportedLang | "Unsupported" {
+    const lang = _getLang(str);
+
+    if (isInteractive) {
+        if (lang != "C++") return "Unsupported";
+    }
+
+    return lang;
 }
 
 const extensions = {
@@ -66,6 +79,28 @@ export async function Compile(
     }
 
     return true;
+}
+
+export async function CompileInteractive(
+    problem: string,
+    content: string,
+    id: string
+): Promise<boolean> {
+    try {
+        await writeFile(`temp/${id}.cpp`, content);
+    } catch (error) {
+        console.log(chalk.red(`ERROR while writing file: ${error}`));
+        return false;
+    }
+
+    try {
+        await exec(
+            `g++ problems/${problem}/public/grader.cpp temp/${id}.cpp -Iproblems/${problem}/public -o temp/${id} -std=c++17 -O2 -lm`
+        );
+        return true;
+    } catch (error) {
+        return false;
+    }
 }
 
 export function getECmd(lang: keyof typeof extensions, id: string) {

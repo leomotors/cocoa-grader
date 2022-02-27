@@ -55,6 +55,8 @@ client.on("ready", (cli) => {
     useActivityGroup(client, groupLoader);
 });
 
-new ConsoleManager().useLogout(client).useReload(groupLoader);
+new ConsoleManager().useLogout(client).useReload(groupLoader, () => {
+    loadProblems();
+});
 
 checkLogin(client, process.env.DISCORD_TOKEN);
