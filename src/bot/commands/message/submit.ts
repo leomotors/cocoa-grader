@@ -10,6 +10,12 @@ import Grade, { Verdict } from "../../../grader/grader";
 import { isInteractive, problemExists } from "../../../grader/problems";
 import { Cocoa, style } from "../../shared";
 
+function trim(str: string, len: number) {
+    if (str.length > len) return str.slice(0, len - 3) + "...";
+
+    return str;
+}
+
 function EmbedGen(msg: Message, result: Verdict, perf: number, lang: string) {
     const pb = result.problem;
 
@@ -23,7 +29,11 @@ function EmbedGen(msg: Message, result: Verdict, perf: number, lang: string) {
                 pb.type ?? "normal"
             }\nSubmission Status: **${result.status}**\nSubtasks Verdict: [${
                 result.subtasks
-            }]`
+            }]${
+                result.compileMessage
+                    ? `\`\`\`${trim(result.compileMessage, 1024)}\`\`\``
+                    : ""
+            }`
         )
         .setThumbnail(
             result.status == "Accepted" ? Cocoa.GIF.ThumbsUp : Cocoa.GIF.NoPoi

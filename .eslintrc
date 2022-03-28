@@ -5,7 +5,7 @@
     "plugins": ["@typescript-eslint"],
     "rules": {
         "indent": ["off", 4],
-        "quotes": ["warn", "double"],
+        "quotes": ["off", "double"],
         "semi": ["warn", "always"],
         "eol-last": "warn",
         "@typescript-eslint/no-unused-vars": [

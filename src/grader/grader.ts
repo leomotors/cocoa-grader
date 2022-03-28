@@ -19,6 +19,7 @@ export interface Verdict {
     subtasks: string;
     submissionId: string;
     limits: Limits;
+    compileMessage?: string;
 }
 
 export const VerdictDict = {
@@ -51,7 +52,7 @@ export default async function Grade(
         problem.type == "interactive"
             ? await CompileInteractive(problemID, code, submissionId)
             : await Compile(lang, code, submissionId);
-    if (!res) {
+    if (typeof res == "string") {
         console.log(`${tag} Graded ${problem.title} [COMPILATION ERROR]`);
         return {
             status: "Compilation Error",
@@ -60,6 +61,7 @@ export default async function Grade(
             subtasks: "E".repeat(Object.keys(problem.subtasks).length),
             submissionId,
             limits,
+            compileMessage: res,
         };
     }
 

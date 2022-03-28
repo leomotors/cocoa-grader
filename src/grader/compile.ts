@@ -46,12 +46,19 @@ export async function Compile(
     lang: SupportedLang,
     content: string,
     id: string
-): Promise<boolean> {
+): Promise<true | string> {
+    if (lang == "C++" && process.env.CLANG) {
+        lang.replace(
+            /#include *<bits\/stdc\+\+\.h>/,
+            '#include "../vendor/stdc++.h"'
+        );
+    }
+
     try {
         await writeFile(`temp/${id}.${extensions[lang]}`, content);
     } catch (error) {
         console.log(chalk.red(`ERROR while writing file: ${error}`));
-        return false;
+        return `${error}`;
     }
 
     try {
@@ -75,7 +82,7 @@ export async function Compile(
                 break;
         }
     } catch (error) {
-        return false;
+        return `${error}`;
     }
 
     return true;
@@ -85,12 +92,12 @@ export async function CompileInteractive(
     problem: string,
     content: string,
     id: string
-): Promise<boolean> {
+): Promise<true | string> {
     try {
         await writeFile(`temp/${id}.cpp`, content);
     } catch (error) {
         console.log(chalk.red(`ERROR while writing file: ${error}`));
-        return false;
+        return `${error}`;
     }
 
     try {
@@ -99,7 +106,7 @@ export async function CompileInteractive(
         );
         return true;
     } catch (error) {
-        return false;
+        return `${error}`;
     }
 }
 
