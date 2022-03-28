@@ -22,31 +22,26 @@ export const aboutme: CocoaSlash = {
                 "I am Cocoa Grader! Who will carefully grade your code! 💖💖"
             )
             .setThumbnail(Cocoa.GIF.お姉ちゃんに任せなさい)
-            .addFields(
+            .addInlineFields(
                 {
                     name: "Bot Version",
                     value: process.env.npm_package_version ?? "Unknown",
-                    inline: true,
                 },
                 {
                     name: "Cocoa Utils Version",
                     value: CocoaVersion,
-                    inline: true,
                 },
                 {
                     name: "Time Compensation",
                     value: `${process.env.EXTRA_TIME ?? "1"}x`,
-                    inline: true,
                 },
                 {
-                    name: "GitHub",
+                    name: "GitHub Project",
                     value: "[Click](https://github.com/Leomotors/cocoa-grader)",
-                    inline: true,
                 },
                 {
                     name: "Problem Statements",
                     value: "[Click](https://leomotors.github.io/stupid-problems/)",
-                    inline: true,
                 }
             );
 

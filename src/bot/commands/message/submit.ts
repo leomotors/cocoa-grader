@@ -38,52 +38,43 @@ function EmbedGen(msg: Message, result: Verdict, perf: number, lang: string) {
         .setThumbnail(
             result.status == "Accepted" ? Cocoa.GIF.ThumbsUp : Cocoa.GIF.NoPoi
         )
-        .addFields(
+        .addInlineFields(
             {
                 name: "Submission ID",
                 value: "#" + result.submissionId.split("-")[0],
-                inline: true,
             },
             {
                 name: "Language",
                 value: lang,
-                inline: true,
             },
             {
                 name: "Your Score",
                 value: `${result.score}/${pb.maxScore ?? 100}`,
-                inline: true,
             },
 
             {
                 name: "Graded on",
                 value: `${process.platform} ${process.arch}`,
-                inline: true,
             },
             {
                 name: "Grader Version",
                 value: process.env.npm_package_version ?? "Unknown",
-                inline: true,
             },
             {
                 name: "Time Compensation",
                 value: `${process.env.EXTRA_TIME ?? 1}x`,
-                inline: true,
             },
             {
                 name: "Time Used",
                 value: `${result.limits.time} ms`,
-                inline: true,
             },
             {
                 name: "Memory Used",
                 value: `${result.limits.mem} KB`,
-                inline: true,
             },
             {
                 name: "Total Grading Time",
                 value: `${Math.round(perf)} ms`,
-                inline: true,
             }
         );
 

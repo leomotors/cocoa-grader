@@ -47,13 +47,6 @@ export async function Compile(
     content: string,
     id: string
 ): Promise<true | string> {
-    if (lang == "C++" && process.env.CLANG) {
-        lang.replace(
-            /#include *<bits\/stdc\+\+\.h>/,
-            '#include "../vendor/stdc++.h"'
-        );
-    }
-
     try {
         await writeFile(`temp/${id}.${extensions[lang]}`, content);
     } catch (error) {
