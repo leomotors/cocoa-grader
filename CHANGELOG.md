@@ -4,6 +4,10 @@ All notable changes to Kawaii Cocoa Grader will be documented here
 
 Changelog before 0.2.2 will not be noted here
 
+## [1.2.0] - 2022-03-28
+
+- Now display compilation error message
+
 ## [1.1.0] - 2022-02-27
 
 - Added Interactive (Partial Support)
